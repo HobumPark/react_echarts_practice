@@ -34,12 +34,12 @@ const ChartNav = () => {
       <div style={menuStyle}>
         <div style={rowStyle}>
           <strong>막대차트:</strong>
-          <Link to="/bar/static">정적 대용량</Link> {'|'}
+          <Link to="/bar/large">정적 대용량</Link> {'|'}
           <Link to="/bar/dynamic">동적 데이터</Link>
         </div>
         <div style={rowStyle}>
           <strong>라인차트:</strong>
-          <Link to="/line/static">정적 대용량</Link> {'|'}
+          <Link to="/line/large">정적 대용량</Link> {'|'}
           <Link to="/line/dynamic">동적 데이터</Link>
         </div>
         <div style={rowStyle}>

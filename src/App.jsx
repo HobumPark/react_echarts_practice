@@ -17,9 +17,9 @@ function App() {
         <ChartNav/>
         <Routes>
           <Route path="/" element={<EChartsBarStaticLargeDatasetPage />} />
-          <Route path="/bar/static" element={<EChartsBarStaticLargeDatasetPage />} />
+          <Route path="/bar/large" element={<EChartsBarStaticLargeDatasetPage />} />
           <Route path="/bar/dynamic" element={<EChartsBarDynamicMultiChartControlPage />} />
-          <Route path="/line/static" element={<EChartsLineStaticLargeDatasetPage />} />
+          <Route path="/line/large" element={<EChartsLineStaticLargeDatasetPage />} />
           <Route path="/line/dynamic" element={<EChartsLineDynamicMultiChartControlPage />} />
           <Route path="/pie/dynamic" element={<EChartsPieDynamicControlPage />} />
         </Routes>
