@@ -38,7 +38,7 @@ const generateTrafficData = (count, startDate = new Date()) => {
 };
 
 
-  const EChartsBarChartTestPage = () => {
+  const EChartsStaticLargeDatasetPage = () => {
     const [chartData, setChartData] = useState({
       categories: [],
       series: [],
@@ -93,4 +93,4 @@ const generateTrafficData = (count, startDate = new Date()) => {
   );
 };
 
-export default EChartsBarChartTestPage;
+export default EChartsStaticLargeDatasetPage;

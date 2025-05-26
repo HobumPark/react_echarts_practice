@@ -44,7 +44,7 @@ const ChartNav = () => {
         </div>
         <div style={rowStyle}>
           <strong>파이차트:</strong>
-          <Link to="/pie">원형 분할된 파이 그래프</Link>
+          <Link to="/pie/dynamic">원형 분할된 파이 그래프</Link>
         </div>
       </div>
       <div style={authorStyle}>작성자: Brad / 박호범</div>
