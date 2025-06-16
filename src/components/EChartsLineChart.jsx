@@ -1,73 +1,65 @@
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
+import React, { useEffect, useRef } from 'react';
+import * as echarts from 'echarts';
 
-/**
- * @param {{
- *  title?: string,
- *  categories: string[], // 사용되지 않게 됨
- *  fullTimestamps?: string[],
- *  series: { name: string, data: number[] } | { name: string, data: number[] }[],
- *  width?: string | number,
- *  height?: string | number,
- * }} props
- */
 const EChartsLineChart = ({
-  title = '라인 차트',
-  categories,
-  fullTimestamps,
-  series,
-  width = '100%',
+  title = '',
+  categories = [],
+  series = [],
   height = 400,
+  windowSize = 10,
 }) => {
-  const seriesArray = Array.isArray(series) ? series : [series];
+  const chartRef = useRef(null);
+  const chartInstance = useRef(null);
 
-  const isTimeSeries = fullTimestamps && fullTimestamps.length > 0;
+  useEffect(() => {
+    chartInstance.current = echarts.init(chartRef.current);
+    return () => chartInstance.current?.dispose();
+  }, []);
 
-  const option = {
-    title: {
-      text: title,
-    },
-    tooltip: {
-      trigger: 'axis',
-    },
-    legend: {
-      data: seriesArray.map((s) => s.name),
-    },
-    xAxis: isTimeSeries
-      ? {
-          type: 'time',
-        }
-      : {
-          type: 'category',
-          data: categories,
+  useEffect(() => {
+    if (!chartInstance.current || categories.length === 0) return;
+
+    const total = categories.length;
+    const start = total > windowSize ? ((total - windowSize) / total) * 100 : 0;
+
+    chartInstance.current.setOption({
+      title: { text: title, left: 'center' },
+      tooltip: { trigger: 'axis' },
+      xAxis: {
+        type: 'category',
+        data: categories,
+      },
+      yAxis: { type: 'value' },
+      series: series.map((s) => ({
+        ...s,
+        type: 'line',
+        smooth: true,
+        showSymbol: false,
+      })),
+      dataZoom: [
+        {
+          type: 'slider',
+          start,
+          end: 100,
+          realtime: true,
         },
-    yAxis: {
-      type: 'value',
-    },
-    series: seriesArray.map((s) => ({
-      name: s.name,
-      type: 'line',
-      showSymbol: false,
-      data: isTimeSeries
-        ? s.data.map((value, i) => [fullTimestamps[i], value])
-        : s.data,
-    })),
-    dataZoom: [
-      {
-        type: 'slider',
-        start: 0,
-        end: categories.length > 20 ? 20 : 100,
-        handleSize: '80%',
+        {
+          type: 'inside',
+          start,
+          end: 100,
+        },
+      ],
+      grid: {
+        left: '5%',
+        right: '5%',
+        bottom: '10%',
+        top: '15%',
+        containLabel: true,
       },
-      {
-        type: 'inside',
-        start: 0,
-        end: categories.length > 20 ? 20 : 100,
-      },
-    ],
-  };
+    });
+  }, [categories, series, windowSize]);
 
-  return <ReactECharts option={option} style={{ width, height }} />;
+  return <div ref={chartRef} style={{ width: '100%', height }} />;
 };
 
 export default EChartsLineChart;

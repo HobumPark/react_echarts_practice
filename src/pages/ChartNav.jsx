@@ -46,6 +46,10 @@ const ChartNav = () => {
           <strong>파이차트:</strong>
           <Link to="/pie/dynamic">원형 분할된 파이 그래프</Link>
         </div>
+        <div style={rowStyle}>
+          <strong>영역 슬라이딩:</strong>
+          <Link to="/line/sliding">막대 그래프 슬라이딩</Link>
+        </div>
       </div>
       <div style={authorStyle}>작성자: Brad / 박호범</div>
     </nav>
