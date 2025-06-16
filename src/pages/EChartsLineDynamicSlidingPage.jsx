@@ -37,7 +37,7 @@ const EChartsLineDynamicSlidingPage = () => {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>라인차트 슬라이딩 + 줌/팬 (최신 데이터 10개만 보여주기)</h1>
+      <h1>라인차트 슬라이딩 (최신 데이터 10개만 보여주기)</h1>
       <EChartsLineChart
         title="시간대별 차량 진입/진출 수"
         categories={chartData.categories}
