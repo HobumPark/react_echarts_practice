@@ -6,6 +6,8 @@ import EChartsLineStaticLargeDatasetPage from './pages/EChartsLineStaticLargeDat
 import EChartsLineDynamicMultiChartControlPage from './pages/EChartsLineDynamicMultiChartControlPage'
 import EChartsPieDynamicControlPage from './pages/EChartsPieDynamicControlPage'
 import EChartsLineDynamicSlidingPage from './pages/EChartsLineDynamicSlidingPage'
+import EChartsLineDynamicSlidingPage2 from './pages/EChartsLineDynamicSlidingPage2'
+import BoardDynamic from './pages/BoardDynamic'
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import ChartNav from './pages/ChartNav'
@@ -25,6 +27,8 @@ function App() {
           <Route path="/line/dynamic" element={<EChartsLineDynamicMultiChartControlPage />} />
           <Route path="/pie/dynamic" element={<EChartsPieDynamicControlPage />} />
           <Route path="/line/sliding" element={<EChartsLineDynamicSlidingPage />} />
+          <Route path="/line/sliding2" element={<EChartsLineDynamicSlidingPage2 />} />
+          <Route path="/board/dynamic" element={<BoardDynamic />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -50,6 +50,14 @@ const ChartNav = () => {
           <strong>영역 슬라이딩:</strong>
           <Link to="/line/sliding">막대 그래프 슬라이딩</Link>
         </div>
+        <div style={rowStyle}>
+          <strong>영역 슬라이딩:</strong>
+          <Link to="/line/sliding2">막대 그래프 슬라이딩2</Link>
+        </div>
+        <div style={rowStyle}>
+          <strong>동적 전광판 테스트:</strong>
+          <Link to="/board/dynamic">동적 전광판 테스트</Link>
+        </div>
       </div>
       <div style={authorStyle}>작성자: Brad / 박호범</div>
     </nav>
