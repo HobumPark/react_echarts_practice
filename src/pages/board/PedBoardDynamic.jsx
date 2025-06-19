@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const BoardDynamic = () => {
+const PedBoardDynamic = () => {
   const [step, setStep] = useState(0);
   const speed = 43; // 임의의 속도 값
 
@@ -27,4 +27,4 @@ const BoardDynamic = () => {
   );
 };
 
-export default BoardDynamic;
+export default PedBoardDynamic;

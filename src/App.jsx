@@ -7,7 +7,8 @@ import EChartsLineDynamicMultiChartControlPage from './pages/EChartsLineDynamicM
 import EChartsPieDynamicControlPage from './pages/EChartsPieDynamicControlPage'
 import EChartsLineDynamicSlidingPage from './pages/EChartsLineDynamicSlidingPage'
 import EChartsLineDynamicSlidingPage2 from './pages/EChartsLineDynamicSlidingPage2'
-import BoardDynamic from './pages/BoardDynamic'
+import CarBoardDynamic from './pages/board/CarBoardDynamic'
+import PedBoardDynamic from './pages/board/PedBoardDynamic'
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import ChartNav from './pages/ChartNav'
@@ -28,7 +29,8 @@ function App() {
           <Route path="/pie/dynamic" element={<EChartsPieDynamicControlPage />} />
           <Route path="/line/sliding" element={<EChartsLineDynamicSlidingPage />} />
           <Route path="/line/sliding2" element={<EChartsLineDynamicSlidingPage2 />} />
-          <Route path="/board/dynamic" element={<BoardDynamic />} />
+          <Route path="/board/dynamic/car" element={<CarBoardDynamic />} />
+          <Route path="/board/dynamic/ped" element={<PedBoardDynamic />} />
         </Routes>
       </BrowserRouter>
     </>

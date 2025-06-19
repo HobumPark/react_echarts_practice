@@ -1,0 +1,27 @@
+/* ChartNav.css */
+
+.chart-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+
+.chart-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chart-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chart-author {
+  font-size: 0.9rem;
+  color: #555;
+  align-self: flex-start;
+}

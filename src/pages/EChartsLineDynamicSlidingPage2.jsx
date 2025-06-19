@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import EChartsLineChart from '../components/EChartsLineChart';
 
-const WINDOW_SIZE = 600; // 10분 = 600초
+const WINDOW_SIZE = 10;
 
 const EChartsLineDynamicSlidingPage2 = () => {
   const [chartData, setChartData] = useState({
@@ -12,53 +12,56 @@ const EChartsLineDynamicSlidingPage2 = () => {
     ],
   });
 
+  const [isSliding, setIsSliding] = useState(true); // 슬라이딩 여부 상태
+
+  // 데이터 추가 타이머
   useEffect(() => {
     const interval = setInterval(() => {
-      setChartData((prev) => {
-        const now = new Date();
-        const newLabel = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+      const now = new Date();
+      const newLabel = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
 
-        const newEntry = Math.floor(Math.random() * 30) + 10;
-        const newExit = Math.floor(Math.random() * 25) + 5;
+      const newEntry = Math.floor(Math.random() * 30) + 10;
+      const newExit = Math.floor(Math.random() * 25) + 5;
 
-        // 600개까지만 유지 (10분)
-        const newCategories = [...prev.categories, newLabel].slice(-WINDOW_SIZE);
-        const newEntryData = [...prev.series[0].data, newEntry].slice(-WINDOW_SIZE);
-        const newExitData = [...prev.series[1].data, newExit].slice(-WINDOW_SIZE);
-
-        return {
-          categories: newCategories,
-          series: [
-            { ...prev.series[0], data: newEntryData },
-            { ...prev.series[1], data: newExitData },
-          ],
-        };
-      });
-    }, 1000); // 1초마다 갱신
+      setChartData((prev) => ({
+        categories: [...prev.categories, newLabel],
+        series: [
+          { ...prev.series[0], data: [...prev.series[0].data, newEntry] },
+          { ...prev.series[1], data: [...prev.series[1].data, newExit] },
+        ],
+      }));
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-   // 누적값 계산
-  const totalEntry = chartData.series[0].data.reduce((sum, val) => sum + val, 0);
-  const totalExit = chartData.series[1].data.reduce((sum, val) => sum + val, 0);
-  const dataCount = chartData.categories.length;  // 시계열 데이터 개수
+  // 보여줄 데이터 (슬라이딩 여부에 따라)
+  const visibleData = {
+    categories: isSliding
+      ? chartData.categories.slice(-WINDOW_SIZE)
+      : chartData.categories,
+    series: chartData.series.map((s) => ({
+      ...s,
+      data: isSliding ? s.data.slice(-WINDOW_SIZE) : s.data,
+    })),
+  };
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>📈 실시간 라인차트 (최근 10분 슬라이딩)</h1>
-      <div style={{ marginBottom: 10 }}>
-        <strong>누적 진입 차량 수:</strong> {totalEntry} &nbsp;&nbsp;
-        <strong>누적 진출 차량 수:</strong> {totalExit} &nbsp;&nbsp;
-        <strong>데이터 개수:</strong> {dataCount} &nbsp;&nbsp;
-      </div>
+      <h1>라인차트 슬라이딩 (최신 데이터 10개만 보여주기)</h1>
+
       <EChartsLineChart
         title="시간대별 차량 진입/진출 수"
-        categories={chartData.categories}
-        series={chartData.series}
+        categories={visibleData.categories}
+        series={visibleData.series}
+        windowSize={WINDOW_SIZE}
         height={500}
-        windowSize={WINDOW_SIZE}  // 여기에 600 넘겨주기
+        sliding={isSliding}
       />
+
+      <button onClick={() => setIsSliding((prev) => !prev)}>
+        {isSliding ? '중지' : '재생'}
+      </button>
     </div>
   );
 };
