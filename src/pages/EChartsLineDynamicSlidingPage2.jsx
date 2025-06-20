@@ -1,7 +1,9 @@
+// EChartsLineDynamicSlidingPage2.jsx
 import React, { useEffect, useState } from 'react';
 import EChartsLineChart from '../components/EChartsLineChart';
-
-const WINDOW_SIZE = 10;
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
+import './EChartsLineDynamicSlidingPage2.css';
 
 const EChartsLineDynamicSlidingPage2 = () => {
   const [chartData, setChartData] = useState({
@@ -12,13 +14,16 @@ const EChartsLineDynamicSlidingPage2 = () => {
     ],
   });
 
-  const [isSliding, setIsSliding] = useState(true); // 슬라이딩 여부 상태
+  const [isSliding, setIsSliding] = useState(true);
+  const [windowSize, setWindowSize] = useState(10);
 
-  // 데이터 추가 타이머
   useEffect(() => {
     const interval = setInterval(() => {
       const now = new Date();
-      const newLabel = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+      const newLabel = `${now.getHours()}:${String(now.getMinutes()).padStart(
+        2,
+        '0'
+      )}:${String(now.getSeconds()).padStart(2, '0')}`;
 
       const newEntry = Math.floor(Math.random() * 30) + 10;
       const newExit = Math.floor(Math.random() * 25) + 5;
@@ -35,32 +40,55 @@ const EChartsLineDynamicSlidingPage2 = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // 보여줄 데이터 (슬라이딩 여부에 따라)
   const visibleData = {
     categories: isSliding
-      ? chartData.categories.slice(-WINDOW_SIZE)
+      ? chartData.categories.slice(-windowSize)
       : chartData.categories,
     series: chartData.series.map((s) => ({
       ...s,
-      data: isSliding ? s.data.slice(-WINDOW_SIZE) : s.data,
+      data: isSliding ? s.data.slice(-windowSize) : s.data,
     })),
   };
 
-  return (
-    <div style={{ padding: 20 }}>
-      <h1>라인차트 슬라이딩 (최신 데이터 10개만 보여주기)</h1>
+  const handleWindowSizeChange = (e) => {
+    let val = Number(e.target.value);
+    if (isNaN(val) || val < 1) val = 1;
+    if (val > chartData.categories.length) val = chartData.categories.length;
+    setWindowSize(val);
+  };
+
+    return (
+    <div className="page-container">
+      <h1>라인차트 슬라이딩 (최신 데이터 {windowSize}개만 보여주기)</h1>
+
+      <label className="window-size-label">
+        보여줄 최신 데이터 개수(N):
+        <input
+          type="number"
+          value={windowSize}
+          min="2"
+          max={chartData.categories.length || 10}
+          onChange={handleWindowSizeChange}
+          disabled={!isSliding}
+          className="window-size-input"
+        />
+      </label>
 
       <EChartsLineChart
         title="시간대별 차량 진입/진출 수"
         categories={visibleData.categories}
         series={visibleData.series}
-        windowSize={WINDOW_SIZE}
+        windowSize={windowSize}
         height={500}
         sliding={isSliding}
       />
 
-      <button onClick={() => setIsSliding((prev) => !prev)}>
-        {isSliding ? '중지' : '재생'}
+      <button
+        className="play-pause-button"
+        onClick={() => setIsSliding((prev) => !prev)}
+        aria-label={isSliding ? '중지' : '재생'}
+      >
+        <FontAwesomeIcon icon={isSliding ? faPause : faPlay} />
       </button>
     </div>
   );

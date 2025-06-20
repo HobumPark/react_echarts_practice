@@ -1,12 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import * as echarts from 'echarts';
 
+// 상단 props에 추가
 const EChartsLineChart = ({
   title = '',
   categories = [],
+  fullTimestamps = [], // ✅ 추가
   series = [],
   height = 400,
   windowSize = 10,
+  sliding = false,
 }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
@@ -17,47 +20,67 @@ const EChartsLineChart = ({
   }, []);
 
   useEffect(() => {
-    if (!chartInstance.current || categories.length === 0) return;
+  const allCategories = fullTimestamps.length > 0 ? fullTimestamps : categories;
+  if (!chartInstance.current || allCategories.length === 0) return;
 
-    const total = categories.length;
-    const start = total > windowSize ? ((total - windowSize) / total) * 100 : 0;
+  const total = allCategories.length;
 
-    chartInstance.current.setOption({
-      title: { text: title, left: 'center' },
-      tooltip: { trigger: 'axis' },
-      xAxis: {
-        type: 'category',
-        data: categories,
+  // 🔹 slicing: 실제로 보일 데이터
+  const visibleCategories = sliding
+    ? allCategories.slice(-windowSize)
+    : allCategories;
+
+  const visibleSeries = series.map((s) => ({
+    ...s,
+    data: sliding ? s.data.slice(-windowSize) : s.data,
+    type: 'line',
+    smooth: true,
+    showSymbol: false,
+  }));
+
+  chartInstance.current.setOption({
+    title: { text: title, left: 'center' },
+    tooltip: { trigger: 'axis' },
+    xAxis: {
+      type: 'category',
+      data: visibleCategories,
+    },
+    yAxis: { type: 'value' },
+    series: visibleSeries,
+    dataZoom: sliding
+  ? [
+      {
+        type: 'slider',
+        start: 0,
+        end: 100,
+        realtime: true,
       },
-      yAxis: { type: 'value' },
-      series: series.map((s) => ({
-        ...s,
-        type: 'line',
-        smooth: true,
-        showSymbol: false,
-      })),
-      dataZoom: [
-        {
-          type: 'slider',
-          start,
-          end: 100,
-          realtime: true,
-        },
-        {
-          type: 'inside',
-          start,
-          end: 100,
-        },
-      ],
-      grid: {
-        left: '5%',
-        right: '5%',
-        bottom: '10%',
-        top: '15%',
-        containLabel: true,
+      {
+        type: 'inside',
+        start: 0,
+        end: 100,
       },
-    });
-  }, [categories, series, windowSize]);
+    ]
+  : [
+      {
+        type: 'slider',
+        realtime: true,
+        // ✅ start, end 없음
+      },
+      {
+        type: 'inside',
+        // ✅ start, end 없음
+      },
+    ],
+    grid: {
+      left: '5%',
+      right: '5%',
+      bottom: '10%',
+      top: '15%',
+      containLabel: true,
+    },
+  });
+}, [categories, fullTimestamps, series, windowSize, sliding, title]);
 
   return <div ref={chartRef} style={{ width: '100%', height }} />;
 };
