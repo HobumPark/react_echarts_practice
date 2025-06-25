@@ -5,13 +5,14 @@ import EChartsBarDynamicMultiChartControlPage from './pages/EChartsBarDynamicMul
 import EChartsLineStaticLargeDatasetPage from './pages/EChartsLineStaticLargeDatasetPage'
 import EChartsLineDynamicMultiChartControlPage from './pages/EChartsLineDynamicMultiChartControlPage'
 import EChartsPieDynamicControlPage from './pages/EChartsPieDynamicControlPage'
-import EChartsLineDynamicSlidingPage from './pages/EChartsLineDynamicSlidingPage'
-import EChartsLineDynamicSlidingPage2 from './pages/EChartsLineDynamicSlidingPage2'
-import CarBoardDynamic from './pages/board/CarBoardDynamic'
-import PedBoardDynamic from './pages/board/PedBoardDynamic'
+import EChartsLineDynamicSlidingPage from './pages/sliding/EChartsLineDynamicSlidingPage'
+import EChartsLineDynamicSlidingPage2 from './pages/sliding/EChartsLineDynamicSlidingPage2'
+import EChartsScatterDynamicSlidingPage from './pages/sliding/EChartsScatterDynamicSlidingPage'
+import EChartsDualLineDynamicSlidingPage from './pages/sliding/EChartsDualLineDynamicSlidingPage'
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import ChartNav from './pages/ChartNav'
+import ChartNav from './pages/nav/ChartNav'
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -27,10 +28,10 @@ function App() {
           <Route path="/line/large" element={<EChartsLineStaticLargeDatasetPage />} />
           <Route path="/line/dynamic" element={<EChartsLineDynamicMultiChartControlPage />} />
           <Route path="/pie/dynamic" element={<EChartsPieDynamicControlPage />} />
-          <Route path="/line/sliding" element={<EChartsLineDynamicSlidingPage />} />
-          <Route path="/line/sliding2" element={<EChartsLineDynamicSlidingPage2 />} />
-          <Route path="/board/dynamic/car" element={<CarBoardDynamic />} />
-          <Route path="/board/dynamic/ped" element={<PedBoardDynamic />} />
+          <Route path="/line/sliding/line" element={<EChartsLineDynamicSlidingPage />} />
+          <Route path="/line/sliding/line2" element={<EChartsLineDynamicSlidingPage2 />} />
+          <Route path="/line/sliding/scatter" element={<EChartsScatterDynamicSlidingPage />} />
+          <Route path="/line/sliding/dual_line" element={<EChartsDualLineDynamicSlidingPage />} />
         </Routes>
       </BrowserRouter>
     </>

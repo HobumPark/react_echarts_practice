@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import EChartsLineChart from '../components/EChartsLineChart';
+import EChartsLineChart from '../../components/EChartsLineChart';
 
 const WINDOW_SIZE = 10;
 
