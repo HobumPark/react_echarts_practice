@@ -54,6 +54,7 @@ const EChartsLineChart = ({
         start: 0,
         end: 100,
         realtime: true,
+        showDataShadow: false,  // 
       },
       {
         type: 'inside',
@@ -65,6 +66,7 @@ const EChartsLineChart = ({
       {
         type: 'slider',
         realtime: true,
+        showDataShadow: false,  // 
         // ✅ start, end 없음
       },
       {
