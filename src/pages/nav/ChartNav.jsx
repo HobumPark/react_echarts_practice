@@ -35,6 +35,14 @@ const ChartNav = () => {
           <strong>이중 라인차트 영역 슬라이딩:</strong>
           <Link to="/line/sliding/dual_line">이중 라인차트 슬라이딩 (영역이동-시작/중지 제어)</Link>
         </div>
+        <div className="chart-row">
+          <strong>라인차트(임계점) 영역 슬라이딩:</strong>
+          <Link to="/line/sliding/line/threshold">라인차트(임계점) 영역 슬라이딩 (영역이동-시작/중지 제어)</Link>
+        </div>
+        <div className="chart-row">
+          <strong>라인차트(임계점)+경고 영역 슬라이딩:</strong>
+          <Link to="/line/sliding/line/threshold/alert">라인차트(임계점)+경고 영역 슬라이딩 (영역이동-시작/중지 제어)</Link>
+        </div>
       </div>
       <div className="chart-author">작성자: Brad / 박호범</div>
     </nav>

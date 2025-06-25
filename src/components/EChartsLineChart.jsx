@@ -10,6 +10,7 @@ const EChartsLineChart = ({
   height = 400,
   windowSize = 10,
   sliding = false,
+  thresholds = [], // [{ name: '임계선1', value: 50, color: 'red' }, ...]
 }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
@@ -30,13 +31,41 @@ const EChartsLineChart = ({
     ? allCategories.slice(-windowSize)
     : allCategories;
 
-  const visibleSeries = series.map((s) => ({
-    ...s,
-    data: sliding ? s.data.slice(-windowSize) : s.data,
-    type: 'line',
-    smooth: true,
-    showSymbol: false,
-  }));
+  const visibleSeries = series.map((s) => {
+    // threshold를 markLine으로 변환
+    const markLineData = thresholds.map((t) => ({
+      name: t.name,
+      yAxis: t.value,
+      lineStyle: { color: t.color || 'red', type: 'solid', width: 2 },
+      label: {
+        show: true,
+        formatter: t.name,
+        position: 'middle',
+        backgroundColor: 'rgba(255, 0, 0, 0.8)',  // 반투명 흰색 배경
+        borderColor: '#333',                          // 테두리 색상
+        borderWidth: 1,                              // 테두리 두께
+        padding: [2, 6],                             // 위/아래 2px, 좌/우 6px 여백
+        borderRadius: 4,                             // 둥근 모서리
+        color: '#000',                               // 글자 색
+        fontWeight: 'bold',                          // 글자 굵기
+      },
+      
+    }));
+
+    return {
+      ...s,
+      data: sliding ? s.data.slice(-windowSize) : s.data,
+      type: 'line',
+      smooth: true,
+      showSymbol: false,
+      markLine: {
+        silent: true,
+        symbol: ['none', 'none'],  // 시작과 끝 화살표 모두 없앰
+        symbolSize: [0, 0],
+        data: markLineData,
+      },
+    };
+});
 
   chartInstance.current.setOption({
     title: { text: title, left: 'center' },

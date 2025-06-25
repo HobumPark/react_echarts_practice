@@ -5,10 +5,13 @@ import EChartsBarDynamicMultiChartControlPage from './pages/EChartsBarDynamicMul
 import EChartsLineStaticLargeDatasetPage from './pages/EChartsLineStaticLargeDatasetPage'
 import EChartsLineDynamicMultiChartControlPage from './pages/EChartsLineDynamicMultiChartControlPage'
 import EChartsPieDynamicControlPage from './pages/EChartsPieDynamicControlPage'
+//슬라이딩
 import EChartsLineDynamicSlidingPage from './pages/sliding/EChartsLineDynamicSlidingPage'
 import EChartsLineDynamicSlidingPage2 from './pages/sliding/EChartsLineDynamicSlidingPage2'
 import EChartsScatterDynamicSlidingPage from './pages/sliding/EChartsScatterDynamicSlidingPage'
 import EChartsDualLineDynamicSlidingPage from './pages/sliding/EChartsDualLineDynamicSlidingPage'
+import EChartsLineDynamicSlidingThresholdPage from './pages/sliding/EChartsLineDynamicSlidingThresholdPage'
+import EChartsLineDynamicSlidingThresholdAlertPage from './pages/sliding/EChartsLineDynamicSlidingThresholdAlertPage'
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import ChartNav from './pages/nav/ChartNav'
@@ -28,10 +31,13 @@ function App() {
           <Route path="/line/large" element={<EChartsLineStaticLargeDatasetPage />} />
           <Route path="/line/dynamic" element={<EChartsLineDynamicMultiChartControlPage />} />
           <Route path="/pie/dynamic" element={<EChartsPieDynamicControlPage />} />
+          {/* 슬라이딩 */}
           <Route path="/line/sliding/line" element={<EChartsLineDynamicSlidingPage />} />
           <Route path="/line/sliding/line2" element={<EChartsLineDynamicSlidingPage2 />} />
           <Route path="/line/sliding/scatter" element={<EChartsScatterDynamicSlidingPage />} />
           <Route path="/line/sliding/dual_line" element={<EChartsDualLineDynamicSlidingPage />} />
+          <Route path="/line/sliding/line/threshold" element={<EChartsLineDynamicSlidingThresholdPage />} />
+          <Route path="/line/sliding/line/threshold/alert" element={<EChartsLineDynamicSlidingThresholdAlertPage />} />
         </Routes>
       </BrowserRouter>
     </>
