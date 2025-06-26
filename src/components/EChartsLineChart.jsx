@@ -11,6 +11,17 @@ const EChartsLineChart = ({
   windowSize = 10,
   sliding = false,
   thresholds = [], // [{ name: '임계선1', value: 50, color: 'red' }, ...]
+  yAxisName = '',  // 기본값 빈 문자열
+  yAxisNameLocation = 'middle',
+  yAxisNameGap = 40,
+  yAxisNameTextStyle = {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#555',
+  },
+  yAxisMin, // ✅ 추가
+  yAxisMax, // ✅ 추가
+  smooth = true,  // 추가: 외부에서 smooth 제어 가능  
 }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
@@ -31,12 +42,17 @@ const EChartsLineChart = ({
     ? allCategories.slice(-windowSize)
     : allCategories;
 
-  const visibleSeries = series.map((s) => {
+  const visibleSeries = series.map((s, seriesIndex) => {
     // threshold를 markLine으로 변환
+    
     const markLineData = thresholds.map((t) => ({
       name: t.name,
       yAxis: t.value,
-      lineStyle: { color: t.color || 'red', type: 'solid', width: 2 },
+      lineStyle: {
+        color: t.color || 'red',
+        type: t.lineType || 'solid', // 🔹 여기서 동적으로 설정
+        width: 2,
+      },
       label: {
         show: true,
         formatter: t.name,
@@ -56,7 +72,7 @@ const EChartsLineChart = ({
       ...s,
       data: sliding ? s.data.slice(-windowSize) : s.data,
       type: 'line',
-      smooth: true,
+      smooth: smooth,
       showSymbol: false,
       markLine: {
         silent: true,
@@ -70,11 +86,28 @@ const EChartsLineChart = ({
   chartInstance.current.setOption({
     title: { text: title, left: 'center' },
     tooltip: { trigger: 'axis' },
+
+    legend: {
+      top: 'bottom',
+      left: 'center',
+      textStyle: {
+        fontSize: 12,
+      },
+    },
+
     xAxis: {
       type: 'category',
       data: visibleCategories,
     },
-    yAxis: { type: 'value' },
+    yAxis: {
+        type: 'value',
+        name: yAxisName,
+        nameLocation: yAxisNameLocation,
+        nameGap: yAxisNameGap,
+        nameTextStyle: yAxisNameTextStyle,
+        ...(yAxisMin !== undefined && { min: yAxisMin }), // ✅ 조건부 적용
+        ...(yAxisMax !== undefined && { max: yAxisMax }), // ✅ 조건부 적용
+    },
     series: visibleSeries,
     dataZoom: sliding
   ? [
@@ -111,7 +144,7 @@ const EChartsLineChart = ({
       containLabel: true,
     },
   });
-}, [categories, fullTimestamps, series, windowSize, sliding, title]);
+}, [categories, fullTimestamps, series, windowSize, sliding, title, smooth]);
 
   return <div ref={chartRef} style={{ width: '100%', height }} />;
 };

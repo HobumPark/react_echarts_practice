@@ -12,6 +12,12 @@ import EChartsScatterDynamicSlidingPage from './pages/sliding/EChartsScatterDyna
 import EChartsDualLineDynamicSlidingPage from './pages/sliding/EChartsDualLineDynamicSlidingPage'
 import EChartsLineDynamicSlidingThresholdPage from './pages/sliding/EChartsLineDynamicSlidingThresholdPage'
 import EChartsLineDynamicSlidingThresholdAlertPage from './pages/sliding/EChartsLineDynamicSlidingThresholdAlertPage'
+import EChartsLineDynamicSlidingThresholdAlertPage2 from './pages/sliding/EChartsLineDynamicSlidingThresholdAlertPage2'
+
+//샘플
+import EChartsLineDynamicSlidingVibrationSample from './pages/sample/EChartsLineDynamicSlidingVibrationSample'
+import EChartsLineDynamicSlidingSlopeSample from './pages/sample/EChartsLineDynamicSlidingSlopeSample'
+import EChartsLineDynamicVisualMapSample from'./pages/sample/EChartsLineDynamicVisualMapSample'
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import ChartNav from './pages/nav/ChartNav'
@@ -38,6 +44,11 @@ function App() {
           <Route path="/line/sliding/dual_line" element={<EChartsDualLineDynamicSlidingPage />} />
           <Route path="/line/sliding/line/threshold" element={<EChartsLineDynamicSlidingThresholdPage />} />
           <Route path="/line/sliding/line/threshold/alert" element={<EChartsLineDynamicSlidingThresholdAlertPage />} />
+          <Route path="/line/sliding/line/threshold/alert2" element={<EChartsLineDynamicSlidingThresholdAlertPage2 />} />
+          {/* 샘플 */}
+          <Route path="/sample/line/vibration" element={<EChartsLineDynamicSlidingVibrationSample />} />
+          <Route path="/sample/line/slope" element={<EChartsLineDynamicSlidingSlopeSample />} />
+          <Route path="/sample/line/visual_map" element={<EChartsLineDynamicVisualMapSample />} />
         </Routes>
       </BrowserRouter>
     </>
