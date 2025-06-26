@@ -16,7 +16,15 @@ const ChartNavPage1 = () => {
         </div>
         <div className="chart-row">
           <strong>라인차트:</strong>
-          <Link to="/sample/line/visual_map">비쥬얼맵</Link>
+          <Link to="/sample/line/change_color">색변경</Link>
+        </div>
+        <div className="chart-row">
+          <strong>라인차트:</strong>
+          <Link to="/sample/line/visual_map">색변경(비쥬얼맵 사용)</Link>
+        </div>
+        <div className="chart-row">
+          <strong>라인차트:</strong>
+          <Link to="/sample/line/5min">5분</Link>
         </div>
       </div>
 

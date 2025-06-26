@@ -7,6 +7,7 @@ const EChartsLineChart = ({
   categories = [],
   fullTimestamps = [], // ✅ 추가
   series = [],
+  lineStyle=null,
   height = 400,
   windowSize = 10,
   sliding = false,
@@ -71,6 +72,11 @@ const EChartsLineChart = ({
     return {
       ...s,
       data: sliding ? s.data.slice(-windowSize) : s.data,
+      lineStyle: {
+        color: s.lineStyle?.color || 'red',
+        type: 'solid',
+        width: 2,
+      },
       type: 'line',
       smooth: smooth,
       showSymbol: false,
