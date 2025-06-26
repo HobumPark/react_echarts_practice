@@ -7,7 +7,7 @@ const EChartsLineDynamicChangeColorSample = () => {
   const [chartData, setChartData] = useState({
     categories: [],
     values: [],
-    selectedFlags: [],
+    selected: [],
   });
 
   const [isSliding, setIsSliding] = useState(true);
@@ -26,7 +26,7 @@ const EChartsLineDynamicChangeColorSample = () => {
 
       const newCategories = [...prev.categories, newLabel];
       const newValues = [...prev.values, newRSRPValue];
-      const newSelectedFlags = [...prev.selectedFlags, isSelected];
+      const selected = [...prev.selected, isSelected];
 
       console.log('Added data:', {
         index: newCount,
@@ -51,7 +51,7 @@ const EChartsLineDynamicChangeColorSample = () => {
       return {
         categories: newCategories,
         values: newValues,
-        selectedFlags: newSelectedFlags,
+        selected: selected,
       };
     });
   }, 1000);
@@ -80,11 +80,14 @@ const EChartsLineDynamicChangeColorSample = () => {
   const visibleData = {
     categories: chartData.categories,
     values: chartData.values,
-    selectedFlags: chartData.selectedFlags,
+    selected: chartData.selected,
   };
 
   const getOption = () => {
     const segments = [];
+    //console.log('visibleData.values.length')
+    //console.log(visibleData.values.length)
+    
     for (let i = 1; i < visibleData.values.length; i++) {
       segments.push({
         name: 'RSRP 데이터',
@@ -94,13 +97,15 @@ const EChartsLineDynamicChangeColorSample = () => {
           [visibleData.categories[i], visibleData.values[i]],
         ],
         lineStyle: {
-          color: visibleData.selectedFlags[i] ? 'red' : 'green',
+          color: visibleData.selected[i] ? 'red' : 'green',
           width: 2,
         },
         showSymbol: false,
         hoverAnimation: false,
       });
     }
+    console.log('segments')
+    console.log(segments)
 
     return {
       title: { text: '시간대별 RSRP 데이터' },

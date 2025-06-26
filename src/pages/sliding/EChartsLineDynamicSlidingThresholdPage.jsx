@@ -82,8 +82,8 @@ const EChartsLineDynamicSlidingThresholdPage = () => {
         height={500}
         sliding={isSliding}
         thresholds={[
-            { name: 'X Danger', value: 30, color: 'red' },
-            { name: 'X Danger', value: 10, color: 'red' },
+            { name: 'X Danger', value: 30, lineStyle:{ color: 'red', type:'dashed', width:3 } },
+            { name: 'X Danger', value: 10, lineStyle:{ color: 'red', type:'dashed', width:3 } },
         ]}
       />
 

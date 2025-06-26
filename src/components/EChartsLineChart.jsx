@@ -7,7 +7,10 @@ const EChartsLineChart = ({
   categories = [],
   fullTimestamps = [], // ✅ 추가
   series = [],
-  lineStyle=null,
+  lineStyle={
+      color:'red',
+      
+  },
   height = 400,
   windowSize = 10,
   sliding = false,
@@ -47,23 +50,23 @@ const EChartsLineChart = ({
     // threshold를 markLine으로 변환
     
     const markLineData = thresholds.map((t) => ({
-      name: t.name,
-      yAxis: t.value,
+      name: t?.name  || '', //내부적이름
+      yAxis: t?.value || '',
       lineStyle: {
-        color: t.color || 'red',
-        type: t.lineType || 'solid', // 🔹 여기서 동적으로 설정
-        width: 2,
+        color: t.lineStyle?.color || 'red',
+        type: t.lineStyle?.type || 'solid', // 🔹 여기서 동적으로 설정
+        width: t.lineStyle?.width,
       },
       label: {
         show: true,
-        formatter: t.name,
-        position: 'middle',
-        backgroundColor: 'rgba(255, 0, 0, 0.8)',  // 반투명 흰색 배경
+        formatter: t.label?.name || '',
+        position: t.label?.position || 'middle',
+        backgroundColor: t.label?.backgroundColor || 'red',  // 반투명 흰색 배경
         borderColor: '#333',                          // 테두리 색상
         borderWidth: 1,                              // 테두리 두께
         padding: [2, 6],                             // 위/아래 2px, 좌/우 6px 여백
         borderRadius: 4,                             // 둥근 모서리
-        color: '#000',                               // 글자 색
+        color: t.label?.color || 'black',  // 글자 색
         fontWeight: 'bold',                          // 글자 굵기
       },
       

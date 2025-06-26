@@ -18,7 +18,7 @@ import EChartsLineDynamicSlidingThresholdAlertPage2 from './pages/sliding/EChart
 import EChartsLineDynamicSlidingVibrationSample from './pages/sample/EChartsLineDynamicSlidingVibrationSample'
 import EChartsLineDynamicSlidingSlopeSample from './pages/sample/EChartsLineDynamicSlidingSlopeSample'
 import EChartsLineDynamicChangeColorSample from'./pages/sample/EChartsLineDynamicChangeColorSample'
-import EChartsLineDynamicVisualMapSample from'./pages/sample/EChartsLineDynamicVisualMapSample'
+import EChartsLineDynamicChangeColorSample2 from'./pages/sample/EChartsLineDynamicChangeColorSample2'
 import EChartsLineDynamicSliding5minPage from'./pages/sample/EChartsLineDynamicSliding5minPage'
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
@@ -51,7 +51,7 @@ function App() {
           <Route path="/sample/line/vibration" element={<EChartsLineDynamicSlidingVibrationSample />} />
           <Route path="/sample/line/slope" element={<EChartsLineDynamicSlidingSlopeSample />} />
           <Route path="/sample/line/change_color" element={<EChartsLineDynamicChangeColorSample />} />
-          <Route path="/sample/line/visual_map" element={<EChartsLineDynamicVisualMapSample />} />
+          <Route path="/sample/line/change_color2" element={<EChartsLineDynamicChangeColorSample2 />} />
           <Route path="/sample/line/5min" element={<EChartsLineDynamicSliding5minPage />} />
         </Routes>
       </BrowserRouter>

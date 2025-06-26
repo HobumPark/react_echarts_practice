@@ -24,7 +24,7 @@ const ChartNavPage1 = () => {
         </div>
         <div className="chart-row">
           <strong>라인차트:</strong>
-          <Link to="/sample/line/5min">5분</Link>
+          <Link to="/sample/line/5min">최근 5분</Link>
         </div>
       </div>
 
